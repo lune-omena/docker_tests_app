@@ -1,20 +1,35 @@
-from flask import Flask
-server = Flask(__name__)
+# Second Step
+import argparse
+import os
 
-@server.route("/")
-def hello(**kwargs):
+# Run docker run, and the docker logs
 
+def hello(**args):
     result = ""
-    result += f"kwargs:{kwargs}"
 
-    """ if kwargs['input']:   
-        result += kwargs['input'] + str("\n")
+    if args['input']:   
+        result += args['input'] + str("\n")
+        if os.path.isfile(args['input']):
+            print(f"{args['input']} é arquivo input válido.")
 
-    if kwargs['output']:
-        result += kwargs['output'] + str("\n")  """
+    if args['output']:
+        result += args['output'] + str("\n")
+        if os.path.isdir(args['output']):
+            print(f"{args['output']} é output válido.")
 
+    print("Cheguei aqui!")
     result += "Hello World!"
-    return result
+
+    print(result)
 
 if __name__ == "__main__":
-   server.run(host='0.0.0.0') 
+    # Pegando argumentos
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", "-i", help="Input path file")
+    parser.add_argument("--output", "-o", help="Output path file")
+    # Transformando em dicionario
+    args = vars(parser.parse_args())
+    print(args)
+
+    # passando argumentos para funcao principal
+    hello(**args)

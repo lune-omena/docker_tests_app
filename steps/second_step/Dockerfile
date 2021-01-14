@@ -1,4 +1,4 @@
-# Third Step
+# Second Step
 # set base image (host OS)
 FROM python:3.6.9
 
@@ -7,9 +7,6 @@ WORKDIR /code
 
 # copy the dependencies file to the working directory
 COPY requirements.txt .
-
-# update pip
-RUN pip install pip --upgrade
 
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
